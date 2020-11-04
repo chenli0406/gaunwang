@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>猎龙网络</title>
+  <% for(let item of htmlWebpackPlugin.options.files.css) { %>
+    <link rel="stylesheet" type="text/css" href="<%= item %>" />
+  <% } %>
+  <link rel="stylesheet" type="text/css" href="../css/admin.min.css"/>
+  <link rel="stylesheet" type="text/css" href="../lib/pagination/pagination.css"/>
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?fc0cf700f33ec7adb38a22451e64d61d";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+</head>
+<body>
+  <div class="layout_wrap">
+    <div class="login_wrap">
+      <div class="login_box">
+        <h3 class="title">猎龙网络后台</h3>
+        <div class="form_box">
+          <input id="username" placeholder="请输入后台账号"/>
+          <input id="password" type="password" placeholder="请输入密码"/>
+          <button id="login_btn">登录</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="content_wrap">
+      <div class="top_wrap">
+        <div class="action_wrap">
+          <a class="btn" id="logout-btn">退出</a>
+        </div>
+      </div>
+      <ul class="left_wrap">
+        <li class="active" data-index="0">首页</li>
+        <li data-index="1">开发流程</li>
+        <!-- <li data-index="2">案例展示</li> -->
+        <li data-index="3">特别内容</li>
+        <li data-index="4">用户信息</li>
+      </ul>
+      <div class="content_box">
+        <!-- 首页数据 -->
+        <div id="home_wrap">
+          <div class="icon-title">点击数</div>
+          <div class="data-line">
+            <div class="data-item">
+              <div class="show-data bg-yellow"><span class="data">0</span>次</div>
+              <div class="title dian">首页</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-yellow"><span class="data">0</span>次</div>
+              <div class="title dian">产品介绍</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-red"><span class="data">0</span>次</div>
+              <div class="title dian">覆盖领域</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-green"><span class="data">0</span>次</div>
+              <div class="title dian">行业案例</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-blue"><span class="data">0</span>次</div>
+              <div class="title dian">关于我们</div>
+            </div>
+          </div>
+          <!-- <div class="icon-title">曝光次数</div>
+          <div class="data-line">
+            <div class="data-item">
+              <div class="show-data bg-blue"><span class="data">0</span>次</div>
+              <div class="title bao">首页曝光</div>
+            </div>
+          </div> -->
+        </div>
+        <!-- 开发流程 -->
+        <div id="dev_wrap">
+          <div class="icon-title">点击数</div>
+          <div class="data-line">
+            <div class="data-item">
+              <div class="show-data bg-yellow"><span class="data">0</span>次</div>
+              <div class="title dian">初步沟通</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-red"><span class="data">0</span>次</div>
+              <div class="title dian">梳理流程</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-green"><span class="data">0</span>次</div>
+              <div class="title dian">评估报价</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-blue"><span class="data">0</span>次</div>
+              <div class="title dian">签订合同</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-black"><span class="data">0</span>次</div>
+              <div class="title dian">签订合同</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-blue"><span class="data">0</span>次</div>
+              <div class="title dian">U I设计</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-orange"><span class="data">0</span>次</div>
+              <div class="title dian">代码开发</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-violet"><span class="data">0</span>次</div>
+              <div class="title dian">上线测试</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-red"><span class="data">0</span>次</div>
+              <div class="title dian">发布上线</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-green"><span class="data">0</span>次</div>
+              <div class="title dian">终身维护</div>
+            </div>
+          </div>
+          <!-- <div class="icon-title">曝光次数</div>
+          <div class="data-line">
+            <div class="data-item">
+              <div class="show-data bg-blue"><span class="data">0</span>次</div>
+              <div class="title bao">流程曝光</div>
+            </div>
+          </div> -->
+        </div>
+        <!-- 案例展示 -->
+        <!-- <div id="case_wrap">
+          <div class="icon-title">点击数</div>
+          <div class="data-line">
+            <div class="data-item">
+              <div class="show-data bg-yellow"><span class="data">0</span>次</div>
+              <div class="title dian">查看案例</div>
+            </div>
+          </div>
+          <div class="icon-title">曝光次数</div>
+          <div class="data-line">
+            <div class="data-item">
+              <div class="show-data bg-blue"><span class="data">0</span>次</div>
+              <div class="title bao">案例曝光</div>
+            </div>
+          </div>
+        </div> -->
+        <!-- 特别内容 -->
+        <div id="video_wrap">
+          <div class="icon-title">点击数</div>
+          <div class="data-line">
+            <div class="data-item">
+              <div class="show-data bg-yellow"><span class="data">0</span>次</div>
+              <div class="title dian">播放次数</div>
+            </div>
+            <div class="data-item">
+              <div class="show-data bg-red"><span class="data">0</span>秒</div>
+              <div class="title play">播放时长</div>
+            </div>
+          </div>
+          <!-- <div class="icon-title">曝光次数</div>
+          <div class="data-line">
+            <div class="data-item">
+              <div class="show-data bg-blue"><span class="data">0</span>次</div>
+              <div class="title bao">视频曝光</div>
+            </div>
+          </div> -->
+        </div>
+        <!-- 用户列表 -->
+        <div id="user_wrap">
+          <div class="icon-title">信息记录</div>
+          <table>
+            <thead>
+              <tr>
+                <th>姓名</th>
+                <th>电话</th>
+                <th>微信</th>
+                <th>项目类型</th>
+                <th>需求描述</th>
+                <th>留言时间</th>
+                <th>省市</th>
+                <th>IP</th>
+              </tr>
+            </thead>
+            <tbody id="user-list"></tbody>
+          </table>
+          <div class="ht-page"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% for(let item of htmlWebpackPlugin.options.files.js) { %>
+    <script src="<%= item %>"></script>
+  <% } %>
+  <script src="../lib/pagination/pagination.js"></script>
+  <script src="../js/admin.min.js"></script>
+</body>
+</html>

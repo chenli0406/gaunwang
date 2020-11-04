@@ -1,0 +1,271 @@
+html, body{
+  height: 100%;
+}
+.layout_wrap{
+  height: 100%;
+  font-size: 12PX;
+}
+.login_wrap{
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  z-index: 100;
+}
+.login_box{
+  width: 420PX;
+  height: 320PX;
+  background-color: #fff;
+  border-radius: 10PX;
+  box-shadow: 0 0 20PX #666;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -180PX;
+  margin-left: -210PX;
+  .title{
+    text-align: center;
+    font-size: 42PX;
+    padding: 40PX 0 10PX 0;
+  }
+  .form_box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30PX 50PX;
+    input{
+      height: 32PX;
+      margin-bottom: 30PX;
+      border-radius: 4PX;
+      border: 1PX solid #4B93FF;
+      padding-left: 10PX;
+      outline: none;
+    }
+    button{
+      background-color: #4B93FF;
+      height: 32PX;
+      border: none;
+      color: #fff;
+    }
+  }
+}
+
+
+.content_wrap{
+  height: 100%;
+  position: relative;
+  .top_wrap{
+    width: 100%;
+    height: 92PX;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: url(../images/admin/logo.png) no-repeat 30PX center #E8F0FF;
+    background-size: 162PX;
+    .action_wrap{
+      position: absolute;
+      right: 20PX;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      .btn{
+        display: inline-block;
+        padding: 10PX 25PX;
+        border-radius: 4PX;
+        background-color: #c2d6fc;
+        font-size: 16PX;
+        cursor: pointer;
+      }
+    }
+  }
+  .left_wrap{
+    width: 294PX;
+    height: 100%;
+    background-color: #4B93FF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding-top: 92PX;
+    box-sizing: border-box;
+    li{
+      height: 100PX;
+      line-height: 100PX;
+      border-bottom: 1PX solid #2079FF;
+      padding-left: 90PX;
+      box-sizing: border-box;
+      color: #fff;
+      font-size: 24PX;
+      cursor: pointer;
+      &.active{
+        background-color: #2079FF;
+      }
+      &:last-of-type{
+        border: none;
+      }
+    }
+  }
+  .content_box{
+    width: 100%;
+    padding: 152PX 80PX 0 374PX;
+    padding-bottom: 60PX;
+    box-sizing: border-box;
+    overflow: hidden;
+    .data-title{
+      color: #000;
+      display: flex;
+      justify-content: left;
+      background-color: #e4ebf7;
+      border: 1PX solid #E5E5E5;
+      border-bottom: none;
+      font-size: 28PX;
+      margin-top: 50PX;
+      p{
+        height: 80PX;
+        line-height: 80PX;
+        width: 33%;
+        text-align: center;
+        border-right: 1PX solid #E5E5E5;
+        &:last-of-type{
+          border-right: 0;
+        }
+      }
+      p:nth-of-type(1) {
+        width: 240PX;
+      }
+    }
+    .user-list{
+      border: 1PX solid #E5E5E5;
+      color: #444444;
+      font-size: 24PX;
+      li{
+        line-height: 80PX;
+        border-bottom: 1PX solid #E5E5E5;
+        display: flex;
+        &:last-of-type{
+          border-bottom: none;
+        }
+        p{
+          width: 33%;
+          text-align: center;
+          border-right: 1PX solid #E5E5E5;
+          &:last-of-type{
+            border-right: 0;
+          }
+        }
+        p:nth-of-type(1) {
+          height: 80PX;
+          width: 240PX;
+          display: inline-block;
+          background-color: #FAFCFF;
+        }
+      }
+    }
+  }
+  .data-line{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+  }
+  .data-item{
+    width: 150PX;
+    margin: 40PX 60PX;
+    .show-data{
+      width: 150PX;
+      height: 150PX;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 30PX;
+      text-align: center;
+      line-height: 150PX;
+    }
+    .title{
+      height: 70PX;
+      line-height: 70PX;
+      padding-left: 40PX;
+      color: #606164;
+      font-size: 24PX;
+      &.dian{
+        background: url(../images/admin/dian-icon.png) no-repeat left center;
+        background-size: auto 34PX;
+      }
+      &.bao{
+        background: url(../images/admin/bao-icon.png)  no-repeat  left center;
+        background-size: auto 34PX;
+      }
+      &.play{
+        background: url(../images/admin/play-icon.png)  no-repeat  left center;
+        background-size: auto 34PX;
+      }
+    }
+  }
+  .icon-title{
+    font-size: 30PX;
+    color: #444444;
+    font-weight: bold;
+    position: relative;
+    padding-left: 35PX;
+    &::before{
+      width: 8PX;
+      height: 30PX;
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 1PX;
+      background-color: #444444;
+    }
+  }
+  #home_wrap, #dev_wrap, #case_wrap, #video_wrap, #user_wrap{
+    display: none;
+  }
+  .bg-yellow{
+    background-color: #FCCF3B;
+  }
+  .bg-red{
+    background-color: #E94F37;
+  }
+  .bg-green{
+    background-color: #03CEA4;
+  }
+  .bg-blue{
+    background-color: #4B93FF;
+  }
+  .bg-black{
+    background-color: #444444;
+  }
+  .bg-orange{
+    background-color: #FCA33B;
+  }
+  .bg-violet{
+    background-color: #A2A4FF;
+  }
+}
+
+#user_wrap{
+  table{
+    width: 100%;
+    margin-top: 30px;
+  }
+  thead{
+    background-color: #e4ebf7;
+    font-size: 28px;
+    th{
+      padding: 20px;
+    }
+  }
+  tbody{
+    font-size: 24px;
+    tr{
+      border-bottom: 1px solid #999;
+    }
+    td{
+      text-align: center;
+      padding: 40px 10px;
+    }
+  }
+}
