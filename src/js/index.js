@@ -437,7 +437,7 @@ class IndexPage {
         $navItems.eq(index).addClass('active');
       }
     });
-
+   
     let $doc = $(document);
     let blockTops = [];
     const halfHeight = $(window).height() * 0.4;
@@ -474,10 +474,18 @@ class IndexPage {
       if (index == 2) {
         window.open("./product.html");
         return true;
-      } else if (index == 3) {
-        window.open("./example.html?eid=0");
+      } 
+      else if (index == 3) {
+       window.open("./example.html?eid=0");
         return true;
       }
+    }
+
+    if(window.isMobile){
+      if (index == 3) {
+         window.open("./exampleMobile.html?eid=0");
+         return true;
+       }
     }
     let $el = this.$dom.find(blockIds[index] || index);
     let $top = this.$dom.find('.top-nav_box').eq(0);

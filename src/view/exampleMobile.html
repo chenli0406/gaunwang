@@ -1,24 +1,36 @@
 <!DOCTYPE html>
-<html lang="zh-CN" style="font-size: 100px;">
+<html lang="zh-CN">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=1220">
+  <meta charset="UTF-8" />
+  <meta name="screen-orientation" content="portrait" />
+  <meta name="browsermode" content="application" />
+  <meta name="x5-orientation" content="portrait" />
+  <meta name="x5-fullscreen" content="true" />
+  <meta name="x5-page-mode" content="app" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>猎龙网络</title>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   <% for(let item of htmlWebpackPlugin.options.files.css) { %>
   <link rel="stylesheet" type="text/css" href="<%= item %>" />
   <% } %>
+  <link rel="stylesheet" type="text/css" href="./lib/vide7.5.5/css/video-js.min.css?v=13" />
   <link rel="stylesheet" type="text/css" href="./lib/swiper5.3.8/swiper.min.css?v=13" />
   <link rel="stylesheet" href="./css/index.min.css?v=13" />
-  <link rel="stylesheet" href="./css/example.min.css?v=13">
+  <script>
+    (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
+    b[h].s=!!c;g=a.getElementsByTagName(e)[0];s=a.createElement(e);
+    s.src="//s.union.360.cn/"+f+".js";s.defer=!0;s.async=!0;g.parentNode.insertBefore(s,g)
+    })(window,document,"script","_qha",370331,false);
+    </script>
   <script>
     (function () {
       var _53code = document.createElement("script");
       _53code.src = "https://tb.53kf.com/code/code/5d9af89780001db176d845a73837e25f7/1";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(_53code, s);
-    })();
+    })(); 
   </script>
   <script>
     var _hmt = _hmt || [];
@@ -29,17 +41,12 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
- <script>
-  (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
-  b[h].s=!!c;g=a.getElementsByTagName(e)[0];s=a.createElement(e);
-  s.src="//s.union.360.cn/"+f+".js";s.defer=!0;s.async=!0;g.parentNode.insertBefore(s,g)
-  })(window,document,"script","_qha",370331,false);
-  </script>
 </head>
 
 <body>
   <div class="layout_wrap">
-    <div class="header_wrap">
+    <!-- 顶部区域 -->
+    <div class="header_wrap" id="home">
       <div class="top-nav_box animated" id="block1">
         <div class="limit_wrap">
           <div class="logo"></div>
@@ -48,17 +55,17 @@
               <a data-index="0">首页</a>
               <a data-index="1">产品介绍</a>
               <a data-index="2">覆盖领域</a>
-              <a data-index="3" class="active" id="case-nav">
+              <a data-index="3" id="case-nav">
                 行业案例
                 <ul class="case_box animated">
-                  <li>生活出行</li>
-                  <li>教育服务</li>
-                  <li>供需平台</li>
-                  <li>医美行业</li>
-                  <li>企业定制</li>
-                  <li>打车软件</li>
-                  <li>硬件对接</li>
-                  <li>更多</li>
+                  <li data-index="6">生活出行</li>
+                  <li data-index="1">教育服务</li>
+                  <li data-index="14">供需平台</li>
+                  <li data-index="4">医美行业</li>
+                  <li data-index="12">企业定制</li>
+                  <li data-index="0">打车软件</li>
+                  <li data-index="5">硬件对接</li>
+                  <li data-index="0">更多</li>
                 </ul>
               </a>
               <a data-index="4">关于我们</a>
@@ -76,24 +83,14 @@
           </div>
         </div>
       </div>
-      <img class="top-img" src="<%=require('../images/example/top-bg.png')%>" />
-    </div>
-    <div class="info_wrap">
-      <ul class="project-list"></ul>
-      <div class="left-info">
-        <!-- <p>案例名称：<span></span></p>
-        <p>开发平台：<span></span></p>
-        <p>所属行业：<span></span></p>
-        <p>产品简介：</p>-->
-        <!-- <p><span></span></p>
-        <div class="btn" id="use-btn">在线领取免费试用地址</div>  -->
+      <div style="height: 3.4rem; width: 100%; -o-object-fit: cover;object-fit: cover">
+        <img style="width: 100%; height: 100%;" class="top-img" src="<%=require('../images/example/top-bg.png')%>" />
       </div>
     </div>
-    <div class="contnet_wrap">
-    </div>
-    <div style="clear: both;"></div>
+     
+
     <!-- 底部区域 -->
-    <div class="footer_wrap" id="footer_wrap">
+    <div class="footer_wrap" id="footer_wrap" style="padding-top:20px">
       <div class="footer-text_wrap limit_wrap">
         <div class="text_box goto_block">
           <p data-value="#home">首页</p>
@@ -133,10 +130,23 @@
       </div>
     </div>
   </div>
-  <script src="./lib/jquery-1.8.3.min.js"></script>
-  <script src="./js/common.min.js?v=10"></script>
+  <div class="message-box" id="message-box">
+    <div class="content">
+      <img src="<%=require('../images/index/success-icon.png')%>" />
+      <h4>信息已提交</h4>
+      <p>客服会在工作日的09:00-18:00与您取得联系</p>
+      <a class="ok-btn">好的</a>
+    </div>
+  </div>
+  <div class="toast-box" id="toast-box"></div>
+  <% for(let item of htmlWebpackPlugin.options.files.js) { %>
+  <script src="<%= item %>"></script>
+  <% } %>
+  <script src="./lib/vide7.5.5/js/video.min.js"></script>
   <script src="./lib/swiper5.3.8/swiper.min.js"></script>
-  <script src="./js/example.min.js?v=10"></script>
+  <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+  <script src="./js/common.min.js?v=10"></script>
+  <script src="./js/index.min.js?v=10"></script>
   <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1278807018&web_id=1278807018"></script>
 </body>
 

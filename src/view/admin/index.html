@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>猎龙网络</title>
   <% for(let item of htmlWebpackPlugin.options.files.css) { %>
-    <link rel="stylesheet" type="text/css" href="<%= item %>" />
+  <link rel="stylesheet" type="text/css" href="<%= item %>" />
   <% } %>
-  <link rel="stylesheet" type="text/css" href="../css/admin.min.css"/>
-  <link rel="stylesheet" type="text/css" href="../lib/pagination/pagination.css"/>
+  <link rel="stylesheet" type="text/css" href="../css/admin.min.css" />
+  <link rel="stylesheet" type="text/css" href="../lib/pagination/pagination.css" />
   <script>
     var _hmt = _hmt || [];
-    (function() {
+    (function () {
       var hm = document.createElement("script");
       hm.src = "https://hm.baidu.com/hm.js?fc0cf700f33ec7adb38a22451e64d61d";
-      var s = document.getElementsByTagName("script")[0]; 
+      var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
+  <script>
+    (function(b,a,e,h,f,c,g,s){b[h]=b[h]||function(){(b[h].c=b[h].c||[]).push(arguments)};
+    b[h].s=!!c;g=a.getElementsByTagName(e)[0];s=a.createElement(e);
+    s.src="//s.union.360.cn/"+f+".js";s.defer=!0;s.async=!0;g.parentNode.insertBefore(s,g)
+    })(window,document,"script","_qha",370331,false);
+    </script>
 </head>
 <body>
   <div class="layout_wrap">
@@ -25,8 +32,8 @@
       <div class="login_box">
         <h3 class="title">猎龙网络后台</h3>
         <div class="form_box">
-          <input id="username" placeholder="请输入后台账号"/>
-          <input id="password" type="password" placeholder="请输入密码"/>
+          <input id="username" placeholder="请输入后台账号" />
+          <input id="password" type="password" placeholder="请输入密码" />
           <button id="login_btn">登录</button>
         </div>
       </div>
@@ -194,9 +201,10 @@
     </div>
   </div>
   <% for(let item of htmlWebpackPlugin.options.files.js) { %>
-    <script src="<%= item %>"></script>
+  <script src="<%= item %>"></script>
   <% } %>
   <script src="../lib/pagination/pagination.js"></script>
   <script src="../js/admin.min.js"></script>
 </body>
+
 </html>
