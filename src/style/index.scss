@@ -198,7 +198,7 @@ body {
     transform: background 0.5s ease;
 
     &.fixed {
-      // background: linear-gradient(to bottom, #091624 0%, rgba($color: #091624, $alpha: 0.8) 70%, rgba($color: #091624, $alpha: 0.3));
+     // background: linear-gradient(to bottom, #091624 0%, rgba($color: #091624, $alpha: 0.8) 70%, rgba($color: #091624, $alpha: 0.3));
       background-color: #091624;
     }
 
@@ -1515,9 +1515,11 @@ body {
 
       .swiper-container {
         height: 490px;
-        padding-top: 110px;
-        background-color: #010427;
-
+       background-color: #010427;
+       .swiper-pagination {
+        bottom: 15px;
+       }
+  
         .pc {
           display: none;
         }
@@ -1531,7 +1533,7 @@ body {
 
           &:nth-of-type(3) {
             .btn {
-              bottom: 90px;
+              bottom: 20px;
             }
           }
 
@@ -1545,7 +1547,7 @@ body {
             padding: 0.2rem 0;
             width: 100%;
             text-align: center;
-            bottom: 160px;
+            bottom: 40px;
 
             img {
               vertical-align: middle;

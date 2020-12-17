@@ -99,20 +99,36 @@ function gotoBlock(index) {
   }
 }
 
-function onClickContact() {
+function onClickContact(val) {
   let $btn = $('.pc-new.pc-title-btn');
   let $win = $(window);
   let top = ($win.height() - 600) * 0.5;
   let left = ($win.width() - 800) * 0.5;
-  if ($btn.length > 0) {
-    window.open (
-      'https://tb.53kf.com/code/client/5d9af89780001db176d845a73837e25f7/1',
-      '_blank',
-      'height=600,width=800,top='+top+',left='+left+',status=yes,toolbar=no,menubar=no,resizable=yes,scrollbars=no,location=no,titlebar=no'
-    )
-  } else {
-    $('div[53kf_icon_versions]').click();
+  if(typeof(val)=='string'){
+    var pc = val.substring(0,val.length-3);
+    if(val.indexOf("=PC") > -1){
+      window.open (
+        'https://tb.53kf.com/code/client/5d9af89780001db176d845a73837e25f7/1?custom_channel='+ pc,
+        '_blank',
+        'height=600,width=800,top='+top+',left='+left+',status=yes,toolbar=no,menubar=no,resizable=yes,scrollbars=no,location=no,titlebar=no'
+      )
+    }else{
+      window.open (
+        'https://tb.53kf.com/code/client/5d9af89780001db176d845a73837e25f7/1?custom_channel='+ val
+      )
+    }
+  }else{
+    if ($btn.length > 0) {
+      window.open (
+        'https://tb.53kf.com/code/client/5d9af89780001db176d845a73837e25f7/1',
+        '_blank',
+        'height=600,width=800,top='+top+',left='+left+',status=yes,toolbar=no,menubar=no,resizable=yes,scrollbars=no,location=no,titlebar=no'
+      )
+    } else {
+      $('div[53kf_icon_versions]').click();
+    }
   }
+  
 }
 
 

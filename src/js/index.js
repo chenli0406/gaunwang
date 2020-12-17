@@ -408,7 +408,6 @@ class IndexPage {
     let $moreMenu = this.$dom.find('#more-btn');
     let $navList = this.$dom.find('#nav-list');
     let $navItems = $navList.find('a');
-
     // 更多菜单
     $moreMenu.on('click', e => {
       e.stopPropagation();
@@ -452,7 +451,9 @@ class IndexPage {
         $navItems.removeClass('active');
         $topbar.removeClass('fixed');
         return;
-      } else {
+      } else if(top <100) {
+        $topbar.removeClass('fixed');
+      }else{
         $topbar.addClass('fixed');
       }
       for (let i in blockTops) {
@@ -483,7 +484,7 @@ class IndexPage {
 
     if(window.isMobile){
       if (index == 3) {
-         window.open("./exampleMobile.html?eid=0");
+         window.open("./exampleMobile.html?eid=0&mobile=true");
          return true;
        }
     }

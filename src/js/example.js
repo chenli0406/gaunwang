@@ -146,8 +146,7 @@ const exampleImgs = [
 
 const exampleInfos = [{
     type: '汽车服务',
-    children: [
-      {
+    children: [{
         name: '鸿日电动',
         platform: '小程序端、APP端',
         trade: '汽车服务',
@@ -275,7 +274,75 @@ const exampleInfos = [{
     ]
   },
 ]
-
+const jsonStr = [
+  `<div class="swiper-container" id="container_1"><div class="swiper-wrapper"><div class="swiper-slide"><img src="./images/ef3a776c95f1fc326bbf49d74dd90f21.png"></div> <div class="swiper-slide">
+           <img src="./images/024a0f41303a7dd2a787507489d81cad.png"> </div><div class="swiper-slide"><img src="./images/8fcbe8020519d408c1c26565ddc3582c.png"> </div></div><div class="swiper-pagination"></div>
+          </div>`,
+  `<div class="swiper-container" id="container_2">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="./images/84fa0781df14bc5d788664ea0ebed357.png">
+        </div>
+        <div class="swiper-slide">
+          <img src="./images/d422b55d32b25c470cba9b7e8dbe3a92.png">
+        </div>
+        <div class="swiper-slide">
+          <img src="./images/c157c1b98eadbe2058af9abba33d3a6f.png">
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>`,
+  `<div class="swiper-container" id="container_3">
+   <div class="swiper-wrapper">
+     <div class="swiper-slide">
+       <img src="./images/aeb45c3f79a991eb29af9dfd31bd0b32.png">
+     </div>
+     <div class="swiper-slide">
+       <img src="./images/693958c0d4bf81bee6d569904f2a67b6.png">
+     </div>
+     <div class="swiper-slide">
+       <img src="./images/b48397ba7e821a7ff2966c73789f6e26.png">
+     </div>
+   </div>
+   <div class="swiper-pagination"></div>
+ </div>`
+]
+const jsonStr1 = [
+  `<div class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">
+      <img src="./images/d86ab3347d68f7029e4bf1a1028f2b4c.png">
+    </div>
+    <div class="swiper-slide">
+      <img src="./images/8b4ba29331b25f488fd712ec43327823.png">
+    </div>
+    <div class="swiper-slide">
+      <img src="./images/f0667ae87aab9c7384ca0c072fa554d4.png">
+    </div>
+  </div>
+  <div class="swiper-pagination"></div>
+</div>`,
+  `<div class="swiper-container">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">
+      <img src="./images/4ca8057451771ff91c5e67ac9b68e8c5.png">
+    </div>
+    <div class="swiper-slide">
+      <img src="./images/dcc6c053dcbbb25920e1c6bb0a81933b.png">
+    </div>
+    <div class="swiper-slide">
+      <img src="./images/ef596304505b231bb440a71c677c69a9.png">
+    </div>
+  </div>
+  <div class="swiper-pagination"></div>
+</div>`
+]
+const btnStr = ['qichefuwufanganbaojia','jiaoyuguanlifanganbaojia','canyinpeisongfanganbaojia','guojiazhengqifanganbaojia',
+                'yiliaomeirongfanganbaojia', 'ruanyingjianfanganbaojia', 'shenghuofuwufanganbaojia','wuliuyunshufanganbaojia',
+                'shejiaotongxunfanganbaojia', 'jinengpeixunfanganbaojia', 'wulianwangfanganbaojia', 'wangzhanjianshefanganbaojia',
+                'neibuguanlifanganbaojia', 'jinrongxitongfanganbaojia', 'gongxupingtaifanganbaojia', 'gengduofanganbaojia'
+]
+var indexClick = 0;
 class ExamplePage {
   constructor(el) {
     let $els = $(el);
@@ -310,14 +377,24 @@ class ExamplePage {
     window.onunload = () => {
       window.scrollTo(0, 0);
     };
-    this.$dom.find('#use-btn').on('click', () => {
-      onClickContact();
-    })
+    // this.$dom.find('#use-btn').on('click', () => {
+    //    onClickContact();
+    // })
+    // this.$dom.find('.btnM').on('click', () => {
+    //   // onClickContact();
+    // })
+
+    $(document).on('click', '#use-btn',function(){
+      onClickContact(btnStr[indexClick]+ '=PC',);
+    });
+    $(document).on('click', '.btnM',function(){
+      onClickContact(btnStr[indexClick]);
+    });  
   }
-  
+
   initSwiper() {
     let swiper = new Swiper('.swiper-container', {
-      loop : true,
+      loop: true,
       autoplay: {
         delay: 5000,
         stopOnLastSlide: false,
@@ -327,31 +404,51 @@ class ExamplePage {
         el: '.swiper-pagination',
         clickable: true,
       },
-      touchRatio : 0.5,
+      touchRatio: 0.5,
     });
   }
   scrollPage() {
     let theight = this.$dom.find('.header_wrap').height();
     let $content = this.$dom.find('.contnet_wrap')
+    let $leftinfo = this.$dom.find('.left-info').height();
     const $doc = $(document);
+    let blockTops = [];
+    let $topbar = this.$dom.find('.top-nav_box');
     $doc.on('scroll', (e) => {
       const top = $doc.scrollTop();
-      const hasclass = this.$dom.hasClass('fixed');
+      const hasclass = this.$dom.hasClass('fixed2');
       const hasclass1 = this.$dom.hasClass('fixed1');
       const cheight = $content.height();
       if (exampleInfos[this.eid].children) {
         this.$dom.removeClass('fixed1');
         if (theight < top && top < cheight) {
-          this.$dom.find('.project-list').addClass('fixed');
+          this.$dom.find('.project-list').addClass('fixed2');
         } else if (hasclass || hasclass1 || (top <= theight || top >= cheight)) {
-           this.$dom.find('.project-list').removeClass('fixed');
+          this.$dom.find('.project-list').removeClass('fixed2');
         }
       } else {
-        this.$dom.find('.project-list').removeClass('fixed');
+        this.$dom.find('.project-list').removeClass('fixed2');
         if (theight < top && top < cheight) {
           this.$dom.addClass('fixed1');
-        } else if (hasclass || hasclass1 ||(top <= theight || top >= cheight)) {
+        } else if (hasclass || hasclass1 || (top <= theight || top >= cheight)) {
           this.$dom.removeClass('fixed1');
+        }
+      }
+      if(window.location.href.indexOf("mobile=true") > -1 && exampleInfos[this.eid].children){
+        if (theight < top && top < $leftinfo) {
+          this.$dom.find('.project-list').addClass('fixed2');
+        } else if (hasclass || hasclass1 || (top <= theight || top >= $leftinfo)) {
+          this.$dom.find('.project-list').removeClass('fixed2');
+        }
+       
+      }
+      if(window.location.href.indexOf("mobile=true") > -1){
+        if (top < 100) {
+          $topbar.removeClass('fixed');
+          return;
+        } 
+        else{
+          $topbar.addClass('fixed');
         }
       }
 
@@ -363,13 +460,17 @@ class ExamplePage {
       let item = exampleInfos[i];
       html += `<li data-index="${i}">${item.type}</li>`
     }
-    html += '<li data-index="more">更多</li>';
+    if (window.location.href.indexOf("mobile=true") < 0) {
+      html += '<li data-index="more">更多</li>';
+    }
     this.$dom.find('.project-list').html(html);
     let that = this;
     let $plis = this.$dom.find('.project-list li');
     $plis.on('click', function () {
+     
       let $el = $(this);
       let index = $el.data('index');
+      indexClick = index;
       if (index == 'more') {
         onClickContact();
         return;
@@ -449,13 +550,18 @@ class ExamplePage {
     return false;
   }
   gotoBlock(label) {
-    if (label == 2) {
-      window.location.href = './product.html';
-      return true;
-    } else if (label == 3) {
-      window.location.href = './example.html?eid=0';
-      return true;
+    if(window.location.href.indexOf("mobile=true") > -1){
+      window.location.href = './index.html';
+    }else{
+      if (label == 2) {
+        window.location.href = './product.html';
+        return true;
+      } else if (label == 3) {
+        window.location.href = './example.html?eid=0';
+        return true;
+      } 
     }
+    
     sessionStorage.setItem('blockName', label);
     window.location.href = './index.html';
   }
@@ -483,34 +589,76 @@ class ExamplePage {
       //   }
       //   $content.append(`<img style="height: 1px;margin-bottom: 100px;border:none"></img>`)
       // }
-      if(data.children.length == 3){
-        $.ajax({
-          url: "http://www.llwlhyd.com/carServe.html",
-          type:"get",
-          success: (res) => {
-           $content.html(res);
-           this.initSwiper();
-         }
-        })
-      }else if(data.children.length == 2){
-        $.ajax({
-          url: "http://www.llwlhyd.com/supply.html",
-          type:"get",
-          success: (res) => {
-           $content.html(res);
-           this.initSwiper();
-         }
-        })
+
+      if (window.location.href.indexOf("mobile=true") < 0) {
+        if (data.children.length == 3) {
+          $.ajax({
+            url: "http://www.llwlhyd.com/carServe.html",
+            type: "get",
+            success: (res) => {
+              $content.html(res);
+              this.initSwiper();
+            }
+          })
+        } else if (data.children.length == 2) {
+          $.ajax({
+            url: "http://www.llwlhyd.com/supply.html",
+            type: "get",
+            success: (res) => {
+              $content.html(res);
+              console.log(res);
+              this.initSwiper();
+            }
+          })
+        }
       }
-      for (let i of data.children) {
-        html += `<p>案例名称：<span>${i.name}</span></p>
-        <p>开发平台：<span>${i.platform}</span></p>
-        <p>所属行业：<span>${i.trade}</span></p>
-        <p>产品简介： </p>
-        <p><span>${i.content}</span></p>
-        <div class="btn" id="use-btn" style="margin-bottom:320px">在线领取免费试用地址</div> `
+      if (window.location.href.indexOf("mobile=true") > -1) {
+
+        if (data.children.length == 3) {
+          for (let [index, item] of new Map(data.children.map((item, i) => [i, item]))) {
+            html += `
+         <div style=" display: flex;justify-content: space-between; align-items: center;">
+         <p style="font-size:16px;margin:10px 0">${item.name}</p> 
+         <div class="btn btnM"  id="use-btnM" style="background-color:#F78C2D">立即领取方案报价</div>
+         </div> 
+         <p>开发平台：<span>${item.platform}</span></p>
+         <p>所属行业：<span>${item.trade}</span></p>
+         <p>产品简介：<span>${item.content}</span></p>
+          ${jsonStr[index]}
+         `
+          }
+          this.$dom.find('.left-info').html(html);
+          this.initSwiper();
+        } else if (data.children.length == 2) {
+          for (let [index, item] of new Map(data.children.map((item, i) => [i, item]))) {
+            html += `
+         <div style=" display: flex;justify-content: space-between; align-items: center;">
+         <p style="font-size:16px;margin:10px 0">${item.name}</p> 
+         <div class="btn btnM"  id="use-btnM" style="background-color:#F78C2D">立即领取方案报价</div>
+         </div> 
+         <p>开发平台：<span>${item.platform}</span></p>
+         <p>所属行业：<span>${item.trade}</span></p>
+         <p>产品简介：<span>${item.content}</span></p>
+          ${jsonStr1[index]}
+         `
+          }
+          this.$dom.find('.left-info').html(html);
+          this.initSwiper();
+        }
+
+      } else {
+        for (let i of data.children) {
+          html += `<p>案例名称：<span>${i.name}</span></p>
+          <p>开发平台：<span>${i.platform}</span></p>
+          <p>所属行业：<span>${i.trade}</span></p>
+          <p>产品简介： </p>
+          <p><span>${i.content}</span></p>
+          <div class="btn" id="use-btn" style="margin-bottom:320px;">在线领取免费试用地址</div> `
+        }
+        this.$dom.find('.left-info').html(html);
       }
-      this.$dom.find('.left-info').html(html);
+
+
     } else {
       for (let item of arrImg) {
         let eimg = new Image();
@@ -518,13 +666,26 @@ class ExamplePage {
         $content.append(eimg);
       }
       let item = exampleInfos[this.eid];
-      html += `<p>案例名称：<span>${item.name}</span></p>
+      if (window.location.href.indexOf("mobile=true") > -1) {
+        html += `
+        <div style=" display: flex;justify-content: space-between; align-items: center;">
+        <p style="font-size:16px;margin:10px 0">${item.name}</p> 
+        <div class="btn btnM" id="use-btnM" style="background-color:#F78C2D">立即领取方案报价</div>
+        </div> 
+        <p>开发平台：<span>${item.platform}</span></p>
+        <p>所属行业：<span>${item.trade}</span></p>
+        <p>产品简介：<span>${item.content}</span></p>`
+        this.$dom.find('.left-info').html(html);
+      } else {
+        html += `<p>案例名称：<span>${item.name}</span></p>
         <p>开发平台：<span>${item.platform}</span></p>
         <p>所属行业：<span>${item.trade}</span></p>
         <p>产品简介：</p>
         <p><span>${item.content}</span></p>
         <div class="btn" id="use-btn">在线领取免费试用地址</div> `
-      this.$dom.find('.left-info').html(html);
+        this.$dom.find('.left-info').html(html);
+      }
+
       // let $infos = this.$dom.find('.left-info span');
       // $infos.eq(0).text(exampleInfos[this.eid].name);
       // $infos.eq(1).text(exampleInfos[this.eid].platform);
