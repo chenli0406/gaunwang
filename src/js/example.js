@@ -606,7 +606,6 @@ class ExamplePage {
             type: "get",
             success: (res) => {
               $content.html(res);
-              console.log(res);
               this.initSwiper();
             }
           })

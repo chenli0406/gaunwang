@@ -111,7 +111,7 @@ html, body{
   }
   .content_box{
     width: 100%;
-    padding: 152PX 80PX 0 374PX;
+    padding: 40PX 80PX 0 374PX;
     padding-bottom: 60PX;
     box-sizing: border-box;
     overflow: hidden;
@@ -203,6 +203,39 @@ html, body{
       }
     }
   }
+  .home-page{
+    width: 200PX;
+    margin: 20PX;
+    .show-data{
+      width:100PX;
+      height: 100PX;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 20PX;
+      text-align: center;
+      line-height:100PX;
+      cursor: pointer;
+    }
+    .title{
+      height: 50PX;
+      line-height: 50PX;
+      padding-left: 40PX;
+      color: #606164;
+      font-size: 18PX;
+      &.dian{
+        background: url(../images/admin/dian-icon.png) no-repeat left center;
+        background-size: auto 34PX;
+      }
+      &.bao{
+        background: url(../images/admin/bao-icon.png)  no-repeat  left center;
+        background-size: auto 34PX;
+      }
+      &.play{
+        background: url(../images/admin/play-icon.png)  no-repeat  left center;
+        background-size: auto 34PX;
+      }
+    }
+  }
   .icon-title{
     font-size: 30PX;
     color: #444444;
@@ -220,7 +253,7 @@ html, body{
       background-color: #444444;
     }
   }
-  #home_wrap, #dev_wrap, #case_wrap, #video_wrap, #user_wrap{
+  #home_wrap, #dev_wrap, #case_wrap, #video_wrap, #user_wrap, #source_wrap{
     display: none;
   }
   .bg-yellow{
@@ -268,4 +301,200 @@ html, body{
       padding: 40px 10px;
     }
   }
+}
+
+#source_wrap{
+  table{
+    width: 100%;
+    margin-top: 30px;
+  }
+  thead{
+    background-color: #e4ebf7;
+    font-size: 24px;
+    th{
+      padding: 20px;
+    }
+  }
+  tbody{
+    font-size: 22px;
+    tr{
+      border-bottom: 1px solid #999;
+    }
+    td{
+      text-align: center;
+      padding: 30px 10px;
+    }
+  }
+  /*分页new_page*/
+.sr-page {
+  padding: 30px;
+  text-align: center;
+}
+
+.sr-page span {
+  vertical-align: middle;
+}
+
+.sr-page a {
+  text-decoration: none;
+  color: #555;
+  outline: none;
+}
+
+.sr-page .pagebtn {
+  width: 52px;
+  height: 30px;
+  background: #1875f0;
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+.sr-page .pagebtn:hover {
+  background: #1875f0;
+}
+
+.sr-page .previous {
+  display: none !important;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #e9e9e9;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+}
+
+
+.sr-page .previous a {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 15px;
+}
+
+.sr-page .next {
+  display: none !important;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #e9e9e9;
+  border-left: 0;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.sr-page .next a {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 15px;
+}
+
+.sr-page .num {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #e9e9e9;
+  border-left: 0;
+}
+
+.sr-page .num.current {
+  padding: 0 15px;
+  background: #4B93FF;
+  color: #fff;
+}
+
+.sr-page .num a {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 15px;
+}
+
+.sr-page .num a:hover {
+  color: #555;
+  background: #f1f1f1;
+}
+
+.sr-page .dots {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #e9e9e9;
+  border-left: 0;
+  padding: 0 15px;
+}
+
+.sr-page .total {
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.sr-page .total.total_page {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.sr-page .page_jump {
+  margin: 0 10px;
+}
+
+.sr-page .pageInput {
+  width: 50px;
+  height: 30px;
+  border: 1px solid #e9e9e9;
+  outline: none;
+  border-radius: 4px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.sr-page .pageInput:focus {
+  border: 1px solid #1875f0;
+}
+
+@media screen and (max-width: 799px) {
+  .sr-page {
+    padding: 10px 0;
+  }
+  .sr-page .num, .sr-page .dots, .sr-page .total {
+    display: none;
+  }
+  .sr-page .num.current {
+    display: inline-block;
+    padding: 0 10px;
+  }
+  .sr-page .total.total_page {
+    display: inline-block;
+  }
+  .sr-page .pageInput, .sr-page .pagebtn {
+    width: 40px;
+  }
+  .sr-page .pagebtn {
+    display: none;
+  }
+  .sr-page .page_jump {
+    margin: 0 5px;
+  }
+}
+}
+
+.mapBox{
+  display: flex;
+}
+#search{
+  border: none;
+  outline: none;
+  background-color:#4B93FF;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#startTime,#endTime{
+  border: 1px solid #ccc;
+  padding: 5px;
+  color: #333;
+  border-radius: 5px;
 }

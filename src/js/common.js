@@ -35,12 +35,12 @@ export const blockIds = ['#block1', '#block2', '#block3', '#block4', '#block5'];
 //   }
 // })
 
-$('#case-nav li').on('click', function(e) {
+$('#case-nav li').unbind("click").on('click', function(e) {
   e.stopPropagation();
   let $el = $(e.target);
   let index = $el.data('index');
   gotoExample(index);
-  return false;
+   return false;
 })
 
 $('#footer_wrap .goto_block p').on('click', (e) => {
@@ -156,3 +156,45 @@ var _hmt = _hmt || [];
   var s = document.getElementsByTagName("script")[0];
   s.parentNode.insertBefore(hm, s);
 })();
+
+
+let stopTime
+let source = '';
+var id = '';
+let urlPath = 'http://192.168.0.193:8808';
+window.onpageshow = ()=>{
+  stopTime = new Date().getTime();
+  let url = window.location.href
+   if(url.indexOf('#360') >-1){
+      source = '360';
+   }else if(url.indexOf('#sougou') >-1){
+      source = '搜狗';
+   }else if(url.indexOf('#baidu') >-1){
+      source = '百度';
+   }else if(url.indexOf('#SM') >-1){
+      source = '神马';
+  }else{
+      source = '自然流量';
+  }
+  $.ajax({
+    url: urlPath + `/browse/add/${source}`,
+    type: 'POST',
+    data: '',
+    success: (res) => {
+       id = res.data
+    }
+  })
+}
+
+window.onpagehide = ()=>{
+  stopTime = new Date().getTime() - stopTime;
+  var second = Math.floor((stopTime % (1000 * 60)) / 1000);
+  $.ajax({
+    url: urlPath + `/browse/${id}/${second}`,
+    type: 'POST',
+    async: false,
+    data: '',
+    success: (res) => {
+    }
+  })
+}

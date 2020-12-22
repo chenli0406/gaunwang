@@ -308,7 +308,7 @@ class IndexPage {
       this.onClickContact();
       return;
     }
-    window.open('./example.html?eid=' + this.exampleIndex);
+     window.open('./example.html?eid=' + this.exampleIndex);
   }
 
   // 开发流程

@@ -52,6 +52,7 @@
         <!-- <li data-index="2">案例展示</li> -->
         <li data-index="3">特别内容</li>
         <li data-index="4">用户信息</li>
+        <li data-index="5">来源记录</li>
       </ul>
       <div class="content_box">
         <!-- 首页数据 -->
@@ -156,6 +157,8 @@
               <div class="title bao">案例曝光</div>
             </div>
           </div>
+
+
         </div> -->
         <!-- 特别内容 -->
         <div id="video_wrap">
@@ -198,6 +201,37 @@
           </table>
           <div class="ht-page"></div>
         </div>
+         <!-- 来源记录 -->
+         <div id="source_wrap">
+          <div class="icon-title">来源记录</div>
+          <label>起始时间：</label>
+          <input style="margin:20px" id="startTime" type="date" value=""/>
+          <input style="margin:20px" id="endTime" type="date" value=""/>
+          <button id="search">搜索</button>
+          <div class="mapBox">
+            <div id="sourceBox" style="width:500px;height:300px;margin:20px"></div>
+            <div id="cityBox" style="width: 500px;height:300px;margin:20px"></div>
+            <div id="cityPie" style="width:300px;height:300px;margin:20px"></div>
+            <div id="sourcePie" style="width: 300px;height:300px;margin:20px"></div>
+          </div>
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>城市</th>
+                  <th>时间</th>
+                  <th>IP</th>
+                  <th>网络</th>
+                  <th>来源</th>
+                  <th>访问时长</th>
+                </tr>
+              </thead>
+              <tbody id="source-list"></tbody>
+            </table>
+            <div class="sr-page"></div>
+          </div>
+        </div>
+        
       </div>
     </div>
   </div>
@@ -205,7 +239,8 @@
   <script src="<%= item %>"></script>
   <% } %>
   <script src="../lib/pagination/pagination.js"></script>
+  <script src="../lib/echarts.min.js"></script>
   <script src="../js/admin.min.js"></script>
-</body>
 
+</body>
 </html>
