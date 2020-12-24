@@ -83,7 +83,7 @@ html, body{
     }
   }
   .left_wrap{
-    width: 294PX;
+    width: 220PX;
     height: 100%;
     background-color: #4B93FF;
     position: fixed;
@@ -96,7 +96,7 @@ html, body{
       height: 100PX;
       line-height: 100PX;
       border-bottom: 1PX solid #2079FF;
-      padding-left: 90PX;
+      text-align: center;
       box-sizing: border-box;
       color: #fff;
       font-size: 24PX;
@@ -111,7 +111,7 @@ html, body{
   }
   .content_box{
     width: 100%;
-    padding: 40PX 80PX 0 374PX;
+    padding: 40PX 40PX 0 250PX;
     padding-bottom: 60PX;
     box-sizing: border-box;
     overflow: hidden;

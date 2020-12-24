@@ -68,8 +68,7 @@ class AdminPage {
     this.pageNum = index;
     this.getData(4);
   }
-  onChangePaginationM(index){
-    console.log(index);
+  onChangePaginationM(index) {
     this.page = index;
     this.getSourceList();
   }
@@ -153,8 +152,7 @@ class AdminPage {
       } else {
         Pagination.Page($(".ht-page"), this.pageNum, this.pageTotal, this.pageCount);
       }
-    } else if (index == 5) {
-    }
+    } else if (index == 5) {}
   }
   login() {
     let username = this.$dom.find('#username').val();
@@ -247,7 +245,7 @@ class AdminPage {
     })
   }
   getSource() {
-    let urlPath = 'http://192.168.0.193:8808';
+    let urlPath = 'http://148.70.37.198:8808';
     let legend = [];
     let seriesData = [];
     let xAxisData = [];
@@ -286,7 +284,7 @@ class AdminPage {
             title: {
               text: '分类时间统计',
               textStyle: {
-                fontSize: 14,
+                fontSize: 12,
                 fontWeight: '',
                 color: '#333',
               },
@@ -295,7 +293,8 @@ class AdminPage {
               trigger: 'axis'
             },
             legend: {
-              data: legend
+              data: legend,
+              padding: [30, 0, 0, 0],
             },
             grid: {
               left: '3%',
@@ -320,7 +319,7 @@ class AdminPage {
     }
   }
   getCity() {
-    let urlPath = 'http://192.168.0.193:8808';
+    let urlPath = 'http://148.70.37.198:8808';
     let legend = [];
     let seriesData = [];
     let xAxisData = [];
@@ -338,56 +337,104 @@ class AdminPage {
         data: para,
         success: (res) => {
           if (res.code == 200) {
-            data = res.data
-            if(data.length>0){
+            data = res.data;
+            if (data) {
               for (let key in res.data) {
-                legend.push(key);
-                seriesData.push({
-                  name: key,
-                  data: res.data[key],
-                  type: 'line'
-                })
-                for (let i = 0; i < res.data[key].length; i++) {
-                  xAxisData.push(res.data[key][i].key);
+                if(key != ''){
+                  legend.push(key);
+                  seriesData.push({
+                    name: key,
+                    data: res.data[key],
+                    type: "line"
+                  })     
+                  for (let i = 0; i < res.data[key].length; i++) {
+                    xAxisData.push(res.data[key][i].key);
+                  }
                 }
               }
-              let xAxis = Array.from(new Set(xAxisData));
-              var myChart = echarts.init(document.getElementById('cityBox'));
-              // 指定图表的配置项和数据
-              var option = {
-                title: {
+
+              let xAxisOptions = Array.from(new Set(xAxisData));
+              // 数据项太多分页处理
+              const Pages = [];
+              var options = [];
+              var yAxisArr = this.arrayChunk(legend, 4)
+              var seriesArr = this.arrayChunk(seriesData, 4)
+              for (var j = 0; j < yAxisArr.length; j++) {
+                Pages.push(j + 1);
+              }
+              for (var index = 0; index < Pages.length; index++) {
+                let yAxis = {
+                  type: 'value'
+                };
+                let series = {};
+                let title = {
                   text: '城市时间统计',
                   textStyle: {
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: '',
                     color: '#333'
                   },
-                },
-                tooltip: {
+                };
+                let tooltip = {
                   trigger: 'axis'
-                },
-                legend: {
-                  data: legend
-                },
-                grid: {
+                };
+                let legend = {
+                  padding: [30, 0, 0, 0],
+                };
+                let grid = {
                   left: '3%',
                   right: '4%',
-                  bottom: '3%',
+                  bottom: 50,
                   containLabel: true
-                },
-                xAxis: {
+                };
+                let xAxis = {
                   type: 'category',
                   boundaryGap: false,
-                  data: xAxis
+                  data: xAxisOptions
+                };
+                legend.data = yAxisArr[index]
+                series = seriesArr[index]
+                options.push({
+                  yAxis: yAxis,
+                  series: series,
+                  title: title,
+                  tooltip: tooltip,
+                  legend: legend,
+                  grid: grid,
+                  xAxis: xAxis,
+                })
+              }
+              var num = 0;
+              var myChart = echarts.init(document.getElementById('cityBox'));
+              // 指定图表的配置项和数据
+              var option = {
+                timeline: {
+                  data: Pages,
+                  axisType: 'category',
+                  realtime: true,
+                  label: {
+                    formatter: function (s) {
+                      return s;
+                    },
+                  },
+                  symbolSize: 8,
+                  controlStyle:{
+                    itemSize: 12
+                  },
+                  autoPlay: false,
+                  playInterval: 1000,
+                  tooltip: {
+                    formatter: function (s) {
+                      num = s.dataIndex;
+                      return s.dataIndex + 1;
+                    }
+                  }
                 },
-                yAxis: {
-                  type: 'value'
-                },
-                series: seriesData
+                options: options,
               };
               myChart.setOption(option);
-            }else{
-               document.getElementById('cityBox').style.display = "none"
+            } else {
+              document.getElementById('cityBox').style.display = "none"
             }
           }
         }
@@ -396,27 +443,40 @@ class AdminPage {
 
   }
   getCityPie() {
-    let urlPath = 'http://192.168.0.193:8808';
-    let data = "";
+    let urlPath = 'http://148.70.37.198:8808';
+    let data = [];
+    let selected = {}
     $.ajax({
       url: urlPath + `/browse/city/total`,
       type: 'POST',
       success: (res) => {
         if (res.code == 200) {
           res.data.map((value, index, arry) => {
+            let name = value.key;
             data.push({
               'value': value.value,
               'name': value.key
             })
+            selected[name] = index < 6;
           })
         }
-        if(data.length>0){
+        data = data.filter(item => {
+          return item.value != 0
+        });
+        let sum = 0;
+        data.forEach(item => {
+          if (item.value)
+            sum += Number(item.value);
+        })
+
+        if (data.length > 0) {
           var myChart = echarts.init(document.getElementById('cityPie'));
           var option = {
             title: {
               text: '城市统计',
               top: 'bottom',
               left: 'center',
+              subtext: sum,
               textStyle: {
                 fontSize: 14,
                 fontWeight: '',
@@ -427,23 +487,47 @@ class AdminPage {
               trigger: 'item',
               formatter: "{a} <br/>{b}: {c} ({d}%)"
             },
+            legend: {
+              type: 'scroll', // 数据过多时，分页显示
+              right: 10,
+              top: 20,
+              bottom: 20,
+              selected: selected //这里默认显示数组中前六个，如果不设置，则所有的数据都会显示在图表上
+            },
+            grid: {
+              left: '6%',
+              right: '6%',
+              bottom: '2%',
+              top: '2%',
+              height: 270,
+              containLabel: true,
+
+            },
             series: [{
               name: '城市统计',
               type: 'pie',
-              radius: '50%',
+              radius: '45%',
               data: data,
+              minAngle: 5, //最小的扇区角度（0 ~ 360），用于防止某个值过小导致扇区太小影响交互
+              avoidLabelOverlap: true, //是否启用防止标签重叠策略
+              hoverAnimation: false,
+              label: {
+                textStyle: {
+                  fontSize: 10
+                }
+              }
             }]
           };
           myChart.setOption(option);
-        }else{
-           document.getElementById('cityPie').style.display = 'none'
+        } else {
+          document.getElementById('cityPie').style.display = 'none'
         }
-      
+
       }
     })
   }
   getSourcePie() {
-    let urlPath = 'http://192.168.0.193:8808';
+    let urlPath = 'http://148.70.37.198:8808';
     let data = [];
     $.ajax({
       url: urlPath + `/browse/source/total`,
@@ -476,41 +560,52 @@ class AdminPage {
           series: [{
             name: '分类统计',
             type: 'pie',
-            radius: '50%',
+            radius: '45%',
             data: data,
+            minAngle: 5, //最小的扇区角度（0 ~ 360），用于防止某个值过小导致扇区太小影响交互
+            avoidLabelOverlap: true, //是否启用防止标签重叠策略
+            hoverAnimation: false,
           }]
         };
         myChart.setOption(option);
       }
     })
   }
-  getSourceList(){
+  getSourceList() {
     let para = new Object();
     para.limit = this.limit;
-    para.page = this.page;
+    para.page = this.page + 1;
     let data = "";
-    let urlPath = 'http://192.168.0.193:8808';
+    let urlPath = 'http://148.70.37.198:8808';
     $.ajax({
       url: urlPath + `/browse/list`,
       type: 'POST',
       dataType: 'json',
       data: para,
       success: (res) => {
-          data = res.data;
-          let html = '';
-          this.total = res.count;
-          data.map(item => {
-            let timeStr = new Date(parseInt(item.createTime)).toLocaleString().replace(/:\d{1,2}$/, ' ');
-            html += `<tr><td>${item.city}</td><td>${timeStr}</td><td>${item.ipAddress}</td><td>${item.province}</td><td>${item.sourceWeb}</td><td>${item.totalTime}</tr>`;
-          });
-          $('#source-list').html(html);
-          if (this.total <= this.count) {
-            $(".sr-page").hide();
-          } else {
-            Pagination.Page($(".sr-page"), this.page, this.total, this.limit);
-          }
+        data = res.data;
+        let html = '';
+        this.total = res.count;
+        data.map(item => {
+          let timeStr = new Date(parseInt(item.createTime)).toLocaleString().replace(/:\d{1,2}$/, ' ');
+          html += `<tr><td>${item.city}</td><td>${timeStr}</td><td>${item.ipAddress}</td><td>${item.province}</td><td>${item.sourceWeb}</td><td>${item.totalTime}</tr>`;
+        });
+        $('#source-list').html(html);
+        if (this.total <= this.count) {
+          $(".sr-page").hide();
+        } else {
+          Pagination.Page($(".sr-page"), this.page, this.total, this.limit);
         }
+      }
     })
+  }
+  //分割数组
+  arrayChunk(array, size) {
+    let data = []
+    for (let i = 0; i < array.length; i += size) {
+      data.push(array.slice(i, i + size))
+    }
+    return data
   }
 }
 new AdminPage('.layout_wrap');
