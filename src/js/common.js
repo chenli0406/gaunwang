@@ -194,7 +194,7 @@ window.onpageshow = ()=>{
   }
  
 }
-// 关闭触发 ios 不兼容 
+// 关闭触发 ios和部分浏览器不兼容（可以通过socket来处理，除此之外目前没有找到其他好的方。要统计来源，不能使用 popstate 方法）
 window.onpagehide = ()=>{
   let oldTime = sessionStorage.getItem('time');
   let data = record && JSON.parse(record) || [];
@@ -218,85 +218,6 @@ window.onpagehide = ()=>{
   })
 }
 
-// 兼容不同浏览器 直接关闭浏览器不执行
-window.onbeforeunload = ()=>{
-  let oldTime = sessionStorage.getItem('time');
-  let data = record && JSON.parse(record) || [];
-  let id = sessionStorage.getItem('ids');
-  if(oldTime && id){
-    stopTime = new Date().getTime() - oldTime;
-  }else{
-    stopTime = new Date().getTime() - stopTime;
-    id = userId;
-  }
-  var second = Math.floor(stopTime / 1000);
-  let record = sessionStorage.getItem('data');
-  sessionStorage.setItem('data',JSON.stringify([...data,{id,path:window.location.href,second}]));
-  $.ajax({
-      url: urlPath + `/browse/${id}/${second}`,
-      type: 'POST',
-      data: '',
-      success: (res) => {
-      }
-  })
-}
-// 兼容不同浏览器 直接关闭浏览器不执行
-window.onunload = ()=>{
-  let oldTime = sessionStorage.getItem('time');
-  let data = record && JSON.parse(record) || [];
-  let id = sessionStorage.getItem('ids');
-  if(oldTime && id){
-    stopTime = new Date().getTime() - oldTime;
-  }else{
-    stopTime = new Date().getTime() - stopTime;
-    id = userId;
-  }
-  var second = Math.floor(stopTime / 1000);
-  let record = sessionStorage.getItem('data');
-  sessionStorage.setItem('data',JSON.stringify([...data,{id,path:window.location.href,second}]));
-  $.ajax({
-      url: urlPath + `/browse/${id}/${second}`,
-      type: 'POST',
-      data: '',
-      success: (res) => {
-      }
-  })
-}
-
-$(function(){
-  pushHistory();
-});
-
-// 监听ios页面跳转触发更新
-function pushHistory(){
-  window.addEventListener("popstate", function(e){
-    let oldTime = sessionStorage.getItem('time');
-    let data = record && JSON.parse(record) || [];
-    let id = sessionStorage.getItem('ids');
-    if(oldTime && id){
-      stopTime = new Date().getTime() - oldTime;
-    }else{
-      stopTime = new Date().getTime() - stopTime;
-      id = userId;
-    }
-    var second = Math.floor(stopTime / 1000);
-    let record = sessionStorage.getItem('data');
-    sessionStorage.setItem('data',JSON.stringify([...data,{id,path:window.location.href,second}]));
-    $.ajax({
-        url: urlPath + `/browse/${id}/${second}`,
-        type: 'POST',
-        data: '',
-        success: (res) => {
-        }
-    })
-  }, false);
-  var state = {
-    title:"",
-    url: "#"
-  };
-  window.history.pushState(state, "", "#");
-}
-
 function pagehideHander(stopTime, id) {
     let stopTimeT = new Date().getTime() - stopTime;
     var second = Math.floor(stopTimeT / 1000);
@@ -305,9 +226,10 @@ function pagehideHander(stopTime, id) {
     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
     var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
     if (isAndroid) {
+      let a = random(1, 20)
       // 解决部分安卓机点击关闭无法监听问题，先给默认值，后面关闭覆盖默认值
       $.ajax({
-        url: urlPath + `/browse/${id}/${second + 1}`,
+        url: urlPath + `/browse/${id}/${second + a}`,
         type: 'POST',
         data: '',
         async:false,
@@ -315,10 +237,11 @@ function pagehideHander(stopTime, id) {
         }
      })
     }
-    if (isIOS) {
+    else if (isIOS) {
+      let a = random(1, 100)
       // 解决ios 点击关闭无法监听问题
       $.ajax({
-            url: urlPath + `/browse/${id}/${stopTimeT}`,
+            url: urlPath + `/browse/${id}/${second + a}`,
             type: 'POST',
             data: '',
             async:false,
@@ -326,10 +249,11 @@ function pagehideHander(stopTime, id) {
             }
         })
     }
-    if(isPc){
+    else if(isPc){
+       let a = random(1, 10)
        // 防止机器人点击， 后面关闭页面自动覆盖最新的时间
        $.ajax({
-        url: urlPath + `/browse/${id}/${second + 2}`,
+        url: urlPath + `/browse/${id}/${second + a}`,
         type: 'POST',
         data: '',
         async:false,
@@ -337,6 +261,23 @@ function pagehideHander(stopTime, id) {
         }
      })
     }
+    else{
+      let a = random(1, 50)
+      // 初始化时间
+      $.ajax({
+       url: urlPath + `/browse/${id}/${second + a}`,
+       type: 'POST',
+       data: '',
+       async:false,
+       success: (res) => {
+       }
+    })
+   }
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+ 
 }
 //  判断是否为pc端
 function IsPC() {

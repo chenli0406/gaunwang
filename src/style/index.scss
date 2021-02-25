@@ -201,16 +201,17 @@ body {
      // background: linear-gradient(to bottom, #091624 0%, rgba($color: #091624, $alpha: 0.8) 70%, rgba($color: #091624, $alpha: 0.3));
       background-color: #091624;
     }
-
     .logo {
-      background: url(../images/logo.png) no-repeat center left;
-      background-size: auto 58px;
-      width: 305px;
-      height: 68px;
-      color: #455880;
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 68px;
+      img{
+        background-size: auto 58px;
+        width: 305px;
+        height: 68px;
+        color: #455880;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 68px;
+      } 
+     
     }
 
     .right_box {
@@ -355,9 +356,7 @@ body {
       height: 868px;
       width: 100%;
       overflow: hidden;
-
       &:first-of-type {
-        bottom: 220px;
       }
 
       .banner {
@@ -1514,7 +1513,7 @@ body {
       }
 
       .swiper-container {
-        height: 490px;
+        height: 540px;
        background-color: #010427;
        .swiper-pagination {
         bottom: 15px;
@@ -1529,11 +1528,10 @@ body {
         }
 
         .swiper-slide {
-          height: 490px;
+          height: 540px;
 
           &:nth-of-type(3) {
             .btn {
-              bottom: 20px;
             }
           }
 
